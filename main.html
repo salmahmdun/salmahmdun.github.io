@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salma Hamdoun - Portfolio</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: bold; color: #764ba2; }
+        .nav-links { display: flex; list-style: none; gap: 2rem; }
+        .nav-links a { text-decoration: none; color: #333; font-weight: 500; transition: color 0.3s ease; }
+        .nav-links a:hover { color: #764ba2; }
+
+        /* Hero */
+        .hero {
+            padding: 120px 0 80px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-50px, -50px); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero::before { animation: none; }
+        }
+
+        .hero-content { position: relative; z-index: 2; }
+
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            margin: 0 auto 2rem;
+            background: #f0f0f0;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        .profile-image:hover { transform: scale(1.05); }
+
+        .hero h1 { font-size: 3.5rem; margin-bottom: 0.5rem; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); }
+
+        .hero .role { font-size: 1.4rem; font-weight: 600; margin-bottom: 1.2rem; opacity: 0.95; }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin: 0 auto 2rem;
+            max-width: 680px;
+            opacity: 0.92;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.6rem;
+            max-width: 760px;
+            margin: 0 auto 2.2rem;
+            list-style: none;
+        }
+        .skills li {
+            background: rgba(255, 255, 255, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+            color: white;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(238, 90, 82, 0.4);
+        }
+        .cta-button:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(238, 90, 82, 0.6); }
+
+        /* Projects */
+        .projects { padding: 80px 0; background: white; }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+        }
+        .project-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); border-color: #667eea; }
+
+        .project-card h3 { font-size: 1.5rem; margin-bottom: 0.5rem; color: #333; }
+
+        .status {
+            display: inline-block;
+            align-self: flex-start;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #764ba2;
+            background: #efe9f7;
+            padding: 3px 12px;
+            border-radius: 50px;
+            margin-bottom: 1rem;
+        }
+
+        .project-description { color: #666; margin-bottom: 1.5rem; line-height: 1.6; }
+
+        .project-details { margin-bottom: 1.5rem; }
+        .project-details h4 { color: #333; margin-bottom: 0.5rem; font-size: 1rem; }
+        .project-details ul { list-style: none; padding-left: 1rem; }
+        .project-details li { color: #666; margin-bottom: 0.3rem; position: relative; }
+        .project-details li::before { content: '•'; color: #667eea; position: absolute; left: -1rem; }
+
+        .project-links { display: flex; gap: 1rem; margin-top: auto; }
+
+        .project-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        .project-link:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4); }
+
+        /* Contact */
+        .contact {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            color: white;
+            text-align: center;
+        }
+        .contact h2 { font-size: 2.5rem; margin-bottom: 2rem; }
+        .contact p { font-size: 1.2rem; margin: 0 auto 2rem; max-width: 640px; opacity: 0.92; }
+
+        .contact-cta {
+            display: inline-block;
+            background: white;
+            color: #764ba2;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 0.4rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .contact-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); }
+
+        a:focus-visible { outline: 3px solid #ff6b6b; outline-offset: 3px; }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1.05rem; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .project-links { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">Salma Hamdoun</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="profile-image">
+                    <img src="myimage.jpg" alt="Salma Hamdoun" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <h1>Salma Hamdoun</h1>
+                <div class="role">AI / Machine Learning Engineer</div>
+                <p>
+                    Computer Science graduate from Jinan University, based in North Lebanon.
+                    I fine-tune language models, build computer vision systems, and ship ML
+                    applications as APIs. Every project below was designed and built on my own.
+                </p>
+                <ul class="skills">
+                    <li>LLM fine-tuning (LoRA / QLoRA)</li>
+                    <li>Computer vision (YOLOv8)</li>
+                    <li>FastAPI</li>
+                    <li>Docker</li>
+                    <li>AWS</li>
+                    <li>Neural networks from scratch</li>
+                    <li>Arabic · English · French · Turkish</li>
+                </ul>
+                <a href="#contact" class="cta-button">Let's Collaborate</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-grid">
+
+                <!-- Project 1 -->
+                <div class="project-card">
+                    <h3>Lebanese Dialect Assistant</h3>
+                    <span class="status">LLM fine-tuning</span>
+                    <p class="project-description">
+                        A conversational assistant that understands and answers in the Lebanese dialect,
+                        built by fine-tuning Qwen2.5-7B with parameter-efficient methods.
+                    </p>
+
+                    <div class="project-details">
+                        <h4>Tech Stack:</h4>
+                        <ul>
+                            <li>Qwen2.5-7B</li>
+                            <li>LoRA / QLoRA</li>
+                            <li>Hugging Face Transformers, PEFT, PyTorch</li>
+                        </ul>
+                    </div>
+
+                    <div class="project-details">
+                        <h4>Main Objective:</h4>
+                        <ul>
+                            <li>Give Lebanese Arabic speakers an assistant that talks the way they do</li>
+                            <li>Adapt a 7B model efficiently on limited hardware</li>
+                        </ul>
+                    </div>
+
+                    <div class="project-links">
+                        <a href="https://github.com/salmahmdun/lebanese_assistant_app" class="project-link">GitHub</a>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card">
+                    <h3>Football Player Detection</h3>
+                    <span class="status">Computer vision</span>
+                    <p class="project-description">
+                        An object detection model that finds and tracks players in football footage,
+                        trained and evaluated with YOLOv8.
+                    </p>
+
+                    <div class="project-details">
+                        <h4>Tech Stack:</h4>
+                        <ul>
+                            <li>YOLOv8 (Ultralytics)</li>
+                            <li>Python, OpenCV</li>
+                        </ul>
+                    </div>
+
+                    <div class="project-details">
+                        <h4>Main Objective:</h4>
+                        <ul>
+                            <li>Detect players accurately in match video</li>
+                            <li>Create a base for match analytics</li>
+                        </ul>
+                    </div>
+
+                    <div class="project-links">
+                        <a href="https://github.com/salmahmdun/Football-Player-Detection-using-YOLOv8" class="project-link">GitHub</a>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card">
+                    <h3>Fraud Detection App</h3>
+                    <span class="status">ML</span>
+                    <p class="project-description">
+                        A fraud detection application that serves a trained ML model through a REST API,
+                        containerized and deployed to the cloud.
+                    </p>
+
+                    <div class="project-details">
+                        <h4>Tech Stack:</h4>
+                        <ul>
+                            <li>Python, FastAPI</li>
+                            <li>Docker</li>
+                            <li>AWS</li>
+                        </ul>
+                    </div>
+
+                    <div class="project-details">
+                        <h4>Main Objective:</h4>
+                        <ul>
+                            <li>Flag suspicious transactions in real time</li>
+                            <li>Take a model from notebook to a running service</li>
+                        </ul>
+                    </div>
+
+                    <div class="project-details">
+                        <h4>Deployment:</h4>
+                        <ul>
+                            <li>Docker container on AWS</li>
+                        </ul>
+                    </div>
+
+                    <div class="project-links">
+                        <a href="https://github.com/salmahmdun/Fraud_Detection_App" class="project-link">GitHub</a>
+                        <a href="#" class="project-link">Live Demo</a>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-card">
+                    <h3>ClinicalAssist AI</h3>
+                    <span class="status">In progress</span>
+                    <p class="project-description">
+                        A medical assistant for doctors that answers from trusted sources using
+                        retrieval-augmented generation and keeps track of each patient case as the conversation goes.
+                    </p>
+
+                    <div class="project-details">
+                        <h4>Tech Stack:</h4>
+                        <ul>
+                            <li>RAG pipeline</li>
+                            <li>Case state management</li>
+                            <li>Streamlit</li>
+                        </ul>
+                    </div>
+
+                    <div class="project-details">
+                        <h4>Main Objective:</h4>
+                        <ul>
+                            <li>Support doctors with grounded, source-based answers</li>
+                            <li>Keep context across a whole case</li>
+                        </ul>
+                    </div>
+
+                    <div class="project-links">
+                        <a href="https://github.com/salmahmdun/medical-dr.-assistant-agent-" class="project-link">GitHub</a>
+                    </div>
+                </div>
+
+                <!-- Project 5 -->
+                <div class="project-card">
+                    <h3>Neural Networks from Scratch</h3>
+                    <span class="status">Fundamentals</span>
+                    <p class="project-description">
+                        Machine learning algorithms and neural networks implemented by hand,
+                        to understand how training really works under the hood.
+                    </p>
+
+                    <div class="project-details">
+                        <h4>Tech Stack:</h4>
+                        <ul>
+                            <li>Python, NumPy</li>
+                        </ul>
+                    </div>
+
+                    <div class="project-details">
+                        <h4>Main Objective:</h4>
+                        <ul>
+                            <li>Build a solid foundation in ML and deep learning</li>
+                        </ul>
+                    </div>
+
+                    <div class="project-links">
+                        <a href="https://github.com/salmahmdun/neural_network_scratch" class="project-link">GitHub</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Let's Work Together</h2>
+            <p>I'm looking for remote AI/ML roles. If you have a project or an opening, I'd love to hear about it.</p>
+            <a href="mailto:salma.hmdun@gmail.com" class="contact-cta">Email Me</a>
+            <a href="https://github.com/salmahmdun" class="contact-cta">GitHub</a>
+            <a href="https://www.linkedin.com/in/salmahamdun/" class="contact-cta">LinkedIn</a>
+        </div>
+    </section>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const id = this.getAttribute('href');
+                if (id.length < 2) return;
+                const target = document.querySelector(id);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        window.addEventListener('scroll', function () {
+            const header = document.querySelector('header');
+            header.style.background = window.scrollY > 100 ? 'rgba(255, 255, 255, 0.98)' : 'rgba(255, 255, 255, 0.95)';
+        });
+    </script>
+</body>
+</html>
